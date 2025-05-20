@@ -20,6 +20,7 @@ Sistema-Indoor-UACM/
 
 ## Documentación
 📄 [Especificación de Requisitos de Software (SRS)](docs/SRS.md)
+📄 [IEEE Standard for Information Technology—Systems Design—Software Design Descriptions (IEE)](docs/IEEE 1016.md)
 
 ## Licencia
 [MIT](LICENSE)
