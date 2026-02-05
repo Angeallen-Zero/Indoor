@@ -23,9 +23,7 @@
 
 
 // --- Configuración de Firebase ---
-#define FIREBASE_HOST "indoor-web-18468-default-rtdb.firebaseio.com"
-#define FIREBASE_DATABASE_URL "https://indoor-web-18468-default-rtdb.firebaseio.com"
-#define FIREBASE_AUTH "AIzaSyCdZGbZJOJj9gDM3HpaJDz2yldutLfgJPs" 
+
 
 // --- Configuración de Hardware (Pines) ---
 #define SOIL_SENSOR_PIN 35  // Pin ADC para el sensor capacitivo
@@ -349,7 +347,7 @@ void initFirebase() {
     config.database_url = FIREBASE_DATABASE_URL;
     
     auth.user.email = "angel.ramos.jain@estudiante.uacm.edu.mx";
-    auth.user.password = "Batman5465.";
+    auth.user.password = "";
 
     Serial.println("Configurando Firebase...");
     Firebase.begin(&config, &auth);
