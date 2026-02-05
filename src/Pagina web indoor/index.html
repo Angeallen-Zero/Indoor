@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control - Invernadero Inteligente</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="loginSection">
+            <div class="header">
+                <h1>Panel de Control - Invernadero Inteligente</h1>
+                <p>Por favor, inicia sesión para continuar.</p>
+            </div>
+            <div class="login-section">
+                <h2>Inicio de Sesión</h2>
+                <div id="loginError" class="error-message"></div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="tu_email@dominio.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Iniciar Sesión</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="dashboardSection" class="dashboard">
+            <div class="dashboard-header">
+                <div>
+                    <h2>Panel de Control - Invernadero Inteligente</h2>
+                    <small>Conectado como: <span id="userEmail"></span></small>
+                </div>
+                <button id="logoutBtn" class="btn-logout">Cerrar Sesión</button>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="cards-row">
+                    <div class="card">
+                        <h3>Sensores (Tiempo Real)</h3>
+                        <div>
+                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Humedad del Suelo:</div>
+                            <span class="sensor-value" id="soilMoisture">0.0 %</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Estado Actual</h3>
+                        <div class="status-grid">
+                            <div class="status-item">
+                                <span>Bomba de Agua:</span>
+                                <span class="status-badge off" id="pumpStatus">OFF</span>
+                            </div>
+                            <div class="status-item">
+                                <span>Ventilador:</span>
+                                <span class="status-badge off" id="fanStatus">OFF</span>
+                            </div>
+                            <div class="status-item">
+                                <span>Luces:</span>
+                                <span class="status-badge off" id="lightStatus">OFF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <h3 style="font-size: 18px; margin-bottom: 20px; color: #333;">Controles</h3>
+
+
+                <div class="control-card">
+                    <h3>Riego</h3>
+                    <div class="slider-control">
+                        <div class="slider-label">
+                            <span>Umbral de Humedad (%):</span>
+                            <span id="humidityValue">30</span>
+                        </div>
+                        <input type="range" min="0" max="100" value="30" class="slider-input" id="humiditySlider">
+                    </div>
+                </div>
+
+
+                <div class="control-card">
+                    <div class="control-header">
+                        <h3>Ventilación</h3>
+                        <label class="switch">
+                            <input type="checkbox" id="ventilationSwitch">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p style="font-size: 13px; color: #666;">Activar Ventilador</p>
+                </div>
+
+
+                <div class="control-card">
+                    <h3>Iluminación</h3>
+                    <div class="time-inputs">
+                        <div class="time-group">
+                            <label>Hora de Encendido</label>
+                            <input type="time" id="lightOnTime" value="06:00">
+                        </div>
+                        <div class="time-group">
+                            <label>Hora de Apagado</label>
+                            <input type="time" id="lightOffTime" value="19:00">
+                        </div>
+                    </div>
+                    <button class="btn-save" id="saveLightingBtn">Guardar Horario</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getDatabase, ref, onValue, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCdZGbZJOJj9gDM3HpaJDz2yldutLfgJPs",
+            authDomain: "indoor-web-18468.firebaseapp.com",
+            databaseURL: "https://indoor-web-18468-default-rtdb.firebaseio.com",
+            projectId: "indoor-web-18468",
+            storageBucket: "indoor-web-18468.firebasestorage.app",
+            messagingSenderId: "850530062301",
+            appId: "1:850530062301:web:1c41cd32c67802d6e26d91"
+        };
+
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+
+        const loginSection = document.getElementById('loginSection');
+        const dashboardSection = document.getElementById('dashboardSection');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('loginError');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const userEmailSpan = document.getElementById('userEmail');
+
+
+        const soilMoisture = document.getElementById('soilMoisture');
+        const pumpStatus = document.getElementById('pumpStatus');
+        const fanStatus = document.getElementById('fanStatus');
+        const lightStatus = document.getElementById('lightStatus');
+
+
+        const humiditySlider = document.getElementById('humiditySlider');
+        const humidityValue = document.getElementById('humidityValue');
+        const ventilationSwitch = document.getElementById('ventilationSwitch');
+        const lightOnTime = document.getElementById('lightOnTime');
+        const lightOffTime = document.getElementById('lightOffTime');
+        const saveLightingBtn = document.getElementById('saveLightingBtn');
+
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                userEmailSpan.textContent = user.email;
+                loginSection.style.display = 'none';
+                dashboardSection.style.display = 'block';
+                initializeDashboard();
+            } else {
+                loginSection.style.display = 'block';
+                dashboardSection.style.display = 'none';
+            }
+        });
+
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                loginError.style.display = 'none';
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                loginError.textContent = 'Error de inicio de sesión: ' + error.message;
+                loginError.style.display = 'block';
+            }
+        });
+
+
+        logoutBtn.addEventListener('click', () => {
+            signOut(auth);
+        });
+
+
+        function initializeDashboard() {
+
+            const sensorRef = ref(database, 'sensores/humedadSuelo');
+            onValue(sensorRef, (snapshot) => {
+                const value = snapshot.val();
+                if (value !== null) {
+                    soilMoisture.textContent = value.toFixed(1) + ' %';
+                }
+            });
+
+
+            const statusRef = ref(database, 'estado');
+            onValue(statusRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    updateStatusBadge(pumpStatus, data.bomba);
+                    updateStatusBadge(fanStatus, data.ventilador);
+                    updateStatusBadge(lightStatus, data.luces);
+                }
+            });
+
+
+            const controlRef = ref(database, 'control');
+            onValue(controlRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    if (data.umbralHumedad !== undefined) {
+                        humiditySlider.value = data.umbralHumedad;
+                        humidityValue.textContent = data.umbralHumedad;
+                    }
+
+                    if (data.ventilacion !== undefined) {
+                        ventilationSwitch.checked = data.ventilacion;
+                    }
+
+                    if (data.iluminacion) {
+                        if (data.iluminacion.horaEncendido) {
+                            lightOnTime.value = data.iluminacion.horaEncendido;
+                        }
+                        if (data.iluminacion.horaApagado) {
+                            lightOffTime.value = data.iluminacion.horaApagado;
+                        }
+                    }
+                }
+            });
+
+
+            humiditySlider.addEventListener('input', (e) => {
+                humidityValue.textContent = e.target.value;
+            });
+
+            humiditySlider.addEventListener('change', (e) => {
+                const value = parseInt(e.target.value);
+                update(ref(database, 'control'), {
+                    umbralHumedad: value
+                });
+            });
+
+
+            ventilationSwitch.addEventListener('change', (e) => {
+                update(ref(database, 'control'), {
+                    ventilacion: e.target.checked
+                });
+            });
+
+
+            saveLightingBtn.addEventListener('click', () => {
+                const onTime = lightOnTime.value;
+                const offTime = lightOffTime.value;
+                
+                update(ref(database, 'control/iluminacion'), {
+                    horaEncendido: onTime,
+                    horaApagado: offTime
+                }).then(() => {
+                    alert('Horario guardado exitosamente');
+                }).catch((error) => {
+                    alert('Error al guardar: ' + error.message);
+                });
+            });
+        }
+
+
+        function updateStatusBadge(element, status) {
+            if (status === 'ON' || status === true) {
+                element.textContent = 'ON';
+                element.classList.remove('off');
+                element.classList.add('on');
+            } else {
+                element.textContent = 'OFF';
+                element.classList.remove('on');
+                element.classList.add('off');
+            }
+        }
+    </script>
+</body>
+</html>
