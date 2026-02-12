@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Planta - Indoor Plant</title>
+    <link rel="stylesheet" href="add-plantas-styles.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <div class="seccion-logo">
+            <a href="index.html" class="boton-volver">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="white">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </a>
+            <div class="icono-planta">🌱</div>
+            <h1 class="titulo-app">Indoor Plant</h1>
+        </div>
+
+        <div class="avatar-usuario">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#3d5a6c">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 
+                10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 
+                3 3s-1.34 3-3 3-3-1.34-3-3 
+                1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22
+                .03-1.99 4-3.08 6-3.08 1.99 0 
+                5.97 1.09 6 3.08-1.29 
+                1.94-3.5 3.22-6 3.22z"/>
+            </svg>
+        </div>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="encabezado-pagina">
+            <h2 class="titulo-pagina">Agregar Nueva Planta</h2>
+            <p class="subtitulo-pagina">Elige cómo deseas agregar tu planta</p>
+        </section>
+
+        <section class="contenedor-opciones">
+
+            <!-- Opción Manual -->
+            <div class="tarjeta-opcion opcion-manual">
+                <div class="icono-opcion">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                    </svg>
+                </div>
+
+                <h3 class="titulo-opcion">Agregar Manualmente</h3>
+                <p class="descripcion-opcion">
+                    Ingresa los detalles de tu planta manualmente: nombre, tipo, etc.
+                </p>
+
+                <ul class="caracteristicas-opcion">
+                    <li>Control total de la información</li>
+
+                </ul>
+
+                <button class="boton-opcion" onclick="location.href='add-manual.html'">
+                    Ingresar Datos
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Opción Escáner -->
+            <div class="tarjeta-opcion opcion-escaner">
+                <div class="icono-opcion">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8
+                        a2 2 0 0 1 2-2h4l2-3h6l2 
+                        3h4a2 2 0 0 1 2 2z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                    </svg>
+                </div>
+
+                <h3 class="titulo-opcion">Escanear con Foto</h3>
+                <p class="descripcion-opcion">
+                    Toma una foto de tu planta y obtén información automática sobre la especie.
+                </p>
+
+                <ul class="caracteristicas-opcion">
+                    <li>Identificación automática</li>
+                </ul>
+
+                <button class="boton-opcion" onclick="location.href='scan-plant.html'">
+                    Tomar Foto
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
+
+        </section>
+
+        <section class="seccion-info">
+            <div class="tarjeta-info">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="#8eb69b">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 
+                    10 10 10-4.48 10-10S17.52 
+                    2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+
+                <div class="texto-info">
+                    <h4>¿No sabes qué opción elegir?</h4>
+                    <p>
+                        Si conoces tu planta, usa el método manual.
+                        Si quieres identificarla, usa el escaneo con foto.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
