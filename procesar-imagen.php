@@ -16,7 +16,7 @@ if (!is_dir("uploads")) {
 $nombreArchivo = "uploads/" . time() . "_" . basename($_FILES['imagen']['name']);
 move_uploaded_file($_FILES['imagen']['tmp_name'], $nombreArchivo);
 
-$apiKey = "2b10pFmBeRNf5Dj7FyibareT7O";
+$apiKey = "AQUI VA LA APIKEY";
 $url = "https://my-api.plantnet.org/v2/identify/all?api-key=$apiKey&lang=es";
 
 $image = curl_file_create($nombreArchivo);
@@ -57,4 +57,5 @@ $resultado = [
 ];
 
 echo json_encode($resultado);
+
 exit;
