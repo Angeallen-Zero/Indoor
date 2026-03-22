@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "indoor");
+$conn = new mysqli("localhost", "root", "", "growsystem");
 ?>
 <!DOCTYPE html>
 <html lang="es">

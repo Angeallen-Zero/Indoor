@@ -15,7 +15,7 @@ if (!$data) {
     exit;
 }
 
-$conexion = new mysqli("localhost", "root", "", "indoor");
+$conexion = new mysqli("localhost", "root", "", "growsystem");
 
 if ($conexion->connect_error) {
     echo json_encode([

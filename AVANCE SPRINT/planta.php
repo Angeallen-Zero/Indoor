@@ -1,6 +1,6 @@
 <?php
 
-$conn = new mysqli("localhost", "root", "", "indoor");
+$conn = new mysqli("localhost", "root", "", "growsystem");
 
 $id = intval($_GET['id']);
 

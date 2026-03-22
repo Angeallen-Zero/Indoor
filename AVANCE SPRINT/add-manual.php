@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $conn = new mysqli("localhost", "root", "", "indoor");
+    $conn = new mysqli("localhost", "root", "", "growsystem");
 
     if ($conn->connect_error) {
         die("Error conexión BD");
