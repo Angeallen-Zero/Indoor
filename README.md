@@ -5,7 +5,7 @@ Proyecto desarrollado para la **Universidad Autónoma de la Ciudad de México (U
 ## Características
 - Control automático de humedad, luz y ventilación.
 - Interfaz de usuario con menú configurable.
-- Hardware basado en Wemos R1 D1.
+- Hardware basado en ESP32.
 
 ## Estructura del Proyecto
 ```
