@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(135deg, #1e1e1e, #2c3e50);
+  color: white;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.header a {
+  color: white;
+  text-decoration: none;
+  background: #27ae60;
+  padding: 8px 15px;
+  border-radius: 20px;
+}
+
+/* CONTENEDOR */
+.contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+/* CARD */
+.card {
+  background: white;
+  color: black;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* ICONO */
+.icono {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+/* BOTÓN */
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  background: #27ae60;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #2ecc71;
+}
