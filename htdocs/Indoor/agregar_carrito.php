@@ -5,46 +5,36 @@ if (!isset($_SESSION['carrito'])) {
     $_SESSION['carrito'] = [];
 }
 
-if (!isset($_SESSION['cantidad_temp'])) {
-    $_SESSION['cantidad_temp'] = [];
-}
-
 $id = $_POST['id'];
 $accion = $_POST['accion'];
 
-if (!isset($_SESSION['cantidad_temp'][$id])) {
-    $_SESSION['cantidad_temp'][$id] = 0;
-}
-
-// ➕ sumar
-if ($accion == "mas") {
-    $_SESSION['cantidad_temp'][$id]++;
-}
-
-// ➖ restar
-if ($accion == "menos") {
-    if ($_SESSION['cantidad_temp'][$id] > 0) {
-        $_SESSION['cantidad_temp'][$id]--;
+/* 🛒 agregar directo desde producto */
+if ($accion == "agregar") {
+    if (isset($_SESSION['carrito'][$id])) {
+        $_SESSION['carrito'][$id]++;
+    } else {
+        $_SESSION['carrito'][$id] = 1;
     }
 }
 
-// 🛒 agregar al carrito
-if ($accion == "agregar") {
+/* ➕ desde carrito */
+if ($accion == "mas") {
+    if (isset($_SESSION['carrito'][$id])) {
+        $_SESSION['carrito'][$id]++;
+    }
+}
 
-    $cantidad = $_SESSION['cantidad_temp'][$id];
+/* ➖ desde carrito */
+if ($accion == "menos") {
+    if (isset($_SESSION['carrito'][$id])) {
+        $_SESSION['carrito'][$id]--;
 
-    if ($cantidad > 0) {
-
-        if (isset($_SESSION['carrito'][$id])) {
-            $_SESSION['carrito'][$id] += $cantidad;
-        } else {
-            $_SESSION['carrito'][$id] = $cantidad;
+        if ($_SESSION['carrito'][$id] <= 0) {
+            unset($_SESSION['carrito'][$id]);
         }
     }
-
-    // reset
-    $_SESSION['cantidad_temp'][$id] = 0;
 }
 
-header("Location: productos.php");
+header("Location: " . $_SERVER['HTTP_REFERER']);
+exit;
 ?>

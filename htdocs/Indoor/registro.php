@@ -58,10 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->close();
                 $db->close();
 
-                // Iniciar sesión automáticamente
-                $_SESSION['usuario_id'] = $nuevoId;
-                $_SESSION['nombre']     = $nombre;
-                $_SESSION['rol']        = 'cliente';
+           $_SESSION['usuario_id'] = $nuevoId;
+           $_SESSION['nombre']     = $nombre;
+           $_SESSION['email']      = $email;
+           $_SESSION['rol']        = 'cliente';
 
                 // Redirigir a activar dispositivo (no tiene ninguno aún)
                 header('Location: index.php');

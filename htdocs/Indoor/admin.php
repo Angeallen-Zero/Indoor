@@ -180,6 +180,57 @@ tr:hover td{background:#fafcfa;}
 
 /* Sin datos */
 .sin-datos{text-align:center;padding:40px;color:var(--gris-texto);font-size:14px;}
+.btn-admin{
+  font-size:13px;
+  color:var(--gris-texto);
+  text-decoration:none;
+  padding:6px 12px;
+  border-radius:8px;
+  border:1px solid var(--gris-borde);
+  transition:background .2s;
+}
+
+.btn-admin:hover{
+  background:var(--gris-bg);
+}
+@media (max-width: 768px) {
+
+  .header {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 16px;
+    gap: 10px;
+  }
+
+  .header-right {
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tabla-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .tabla-buscar {
+    width: 100% !important;
+  }
+
+  .acciones {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-accion {
+    width: 100%;
+  }
+}
 </style>
 </head>
 <body>
@@ -189,11 +240,13 @@ tr:hover td{background:#fafcfa;}
         <img src="icono.png" alt="GrowSystem">
         <span>GrowSystem</span>
     </a>
-    <div class="header-right">
-        <span class="admin-badge">Admin</span>
-        <span style="font-size:13px;color:var(--gris-texto)"><?= htmlspecialchars($nombre) ?></span>
-        <a href="logout.php" class="btn-logout">Cerrar sesión</a>
-    </div>
+  <div class="header-right">
+    <a href="admin_pedidos.php" class="btn-admin">📦 Pedidos</a>
+    <a href="admin_productos.php" class="btn-logout">🛒 Productos</a>
+    <span class="admin-badge">Admin</span>
+    <span style="font-size:13px;color:var(--gris-texto)"><?= htmlspecialchars($nombre) ?></span>
+    <a href="logout.php" class="btn-logout">Cerrar sesión</a>
+</div>
 </header>
 
 <div class="page">

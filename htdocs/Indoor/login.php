@@ -5,7 +5,7 @@ session_start();
 
 // Si ya hay sesión activa, redirigir al dashboard
 if (isset($_SESSION['usuario_id'])) {
-    header('Location: dashboard.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -14,14 +14,16 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once __DIR__ . '/api/db.php';
 
-    $email    = trim($_POST['email']    ?? '');
+    $email    = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
     if (empty($email) || empty($password)) {
         $error = 'Completa todos los campos.';
     } else {
-        $db   = getDB();
-        $stmt = $db->prepare("SELECT id, nombre, password, rol FROM usuarios WHERE email = ? LIMIT 1");
+        $db = getDB();
+
+        // ✅ ahora también trae el email
+        $stmt = $db->prepare("SELECT id, nombre, email, password, rol FROM usuarios WHERE email = ? LIMIT 1");
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $row = $stmt->get_result()->fetch_assoc();
@@ -31,19 +33,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$row) {
             $error = 'Correo o contraseña incorrectos.';
         } else {
-            // Soporta bcrypt (password_verify) y SHA-256 legacy
-            $valido = password_verify($password, $row['password'])
+            // Soporta bcrypt y SHA-256 legacy
+            $valido = password_verify($password, $row['password']) 
                    || hash('sha256', $password) === $row['password'];
 
             if (!$valido) {
                 $error = 'Correo o contraseña incorrectos.';
             } else {
+                // ✅ guardar TODO en sesión
                 $_SESSION['usuario_id'] = $row['id'];
                 $_SESSION['nombre']     = $row['nombre'];
+                $_SESSION['email']      = $row['email'];
                 $_SESSION['rol']        = $row['rol'];
 
-                // Admin → panel admin, cliente → dashboard
-                header('Location: ' . ($row['rol'] === 'admin' ? 'admin.php' : 'dashboard.php'));
+                // Redirección según rol
+                header('Location: ' . ($row['rol'] === 'admin' ? 'admin.php' : 'index.php'));
                 exit;
             }
         }
@@ -61,19 +65,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <style>
 
 :root {
-  --verde:       #31C048;
-  --verde-dark:  #219E35;
+  --verde: #31C048;
+  --verde-dark: #219E35;
   --verde-suave: #EAF7ED;
-  --verde-mid:   #C5EAC9;
-  --gris-bg:     #f0f4f2;
-  --gris-borde:  #e2ebe4;
-  --gris-texto:  #6b7c6e;
-  --texto:       #1e2d22;
-  --rojo:        #e05252;
-  --font:        'DM Sans', sans-serif;
-  --mono:        'DM Mono', monospace;
+  --verde-mid: #C5EAC9;
+  --gris-bg: #f0f4f2;
+  --gris-borde: #e2ebe4;
+  --gris-texto: #6b7c6e;
+  --texto: #1e2d22;
+  --rojo: #e05252;
+  --font: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
 }
-
 
 * { margin:0; padding:0; box-sizing:border-box; }
 
@@ -87,7 +90,6 @@ body {
   padding: 20px;
 }
 
-/* Panel decorativo lateral */
 .auth-wrap {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -110,7 +112,6 @@ body {
   overflow: hidden;
 }
 
-/* Círculos decorativos */
 .auth-panel::before,
 .auth-panel::after {
   content: '';
@@ -132,10 +133,8 @@ body {
   font-size: 24px;
   font-weight: 600;
   color: #fff;
-  letter-spacing: -.3px;
 }
 
-.panel-copy { z-index: 1; }
 .panel-copy h2 {
   font-size: 28px;
   font-weight: 600;
@@ -143,31 +142,13 @@ body {
   line-height: 1.3;
   margin-bottom: 12px;
 }
+
 .panel-copy p {
   font-size: 14px;
   color: rgba(255,255,255,.75);
   line-height: 1.6;
 }
 
-.panel-features { z-index: 1; }
-.feature {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-.feature-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.5);
-  flex-shrink: 0;
-}
-.feature span {
-  font-size: 13px;
-  color: rgba(255,255,255,.8);
-}
-
-/* Formulario */
 .auth-form-wrap {
   padding: 50px 44px;
   display: flex;
@@ -181,6 +162,7 @@ body {
   color: var(--texto);
   margin-bottom: 6px;
 }
+
 .form-sub {
   font-size: 14px;
   color: var(--gris-texto);
@@ -190,6 +172,7 @@ body {
 .campo {
   margin-bottom: 18px;
 }
+
 .campo label {
   display: block;
   font-size: 13px;
@@ -197,6 +180,7 @@ body {
   color: var(--gris-texto);
   margin-bottom: 6px;
 }
+
 .campo input {
   width: 100%;
   padding: 11px 14px;
@@ -204,14 +188,8 @@ body {
   border-radius: 10px;
   font-size: 14px;
   font-family: var(--font);
-  color: var(--texto);
   background: var(--gris-bg);
   outline: none;
-  transition: border-color .2s, background .2s;
-}
-.campo input:focus {
-  border-color: var(--verde);
-  background: #fff;
 }
 
 .error-msg {
@@ -233,13 +211,12 @@ body {
   border-radius: 10px;
   font-size: 15px;
   font-weight: 600;
-  font-family: var(--font);
   cursor: pointer;
-  transition: background .2s, transform .1s;
-  margin-top: 4px;
 }
-.btn-submit:hover  { background: var(--verde-dark); }
-.btn-submit:active { transform: scale(.98); }
+
+.btn-submit:hover {
+  background: var(--verde-dark);
+}
 
 .form-footer {
   text-align: center;
@@ -247,17 +224,11 @@ body {
   font-size: 13px;
   color: var(--gris-texto);
 }
+
 .form-footer a {
   color: var(--verde-dark);
   font-weight: 500;
   text-decoration: none;
-}
-.form-footer a:hover { text-decoration: underline; }
-
-@media (max-width: 640px) {
-  .auth-wrap { grid-template-columns: 1fr; }
-  .auth-panel { display: none; }
-  .auth-form-wrap { padding: 36px 28px; }
 }
 </style>
 </head>
@@ -265,7 +236,6 @@ body {
 
 <div class="auth-wrap">
 
-  <!-- Panel izquierdo decorativo -->
   <div class="auth-panel">
     <div class="panel-logo">
       <img src="icono.png" alt="GrowSystem">
@@ -274,18 +244,10 @@ body {
 
     <div class="panel-copy">
       <h2>Tu invernadero,<br>bajo control.</h2>
-      <p>Monitorea y controla tus plantas desde cualquier lugar de tu red local.</p>
-    </div>
-
-    <div class="panel-features">
-      <div class="feature"><div class="feature-dot"></div><span>Sensores en tiempo real</span></div>
-      <div class="feature"><div class="feature-dot"></div><span>Control de riego y nutrientes</span></div>
-      <div class="feature"><div class="feature-dot"></div><span>Historial y bitácora de cultivo</span></div>
-      <div class="feature"><div class="feature-dot"></div><span>Múltiples invernaderos</span></div>
+      <p>Monitorea y controla tus plantas desde cualquier lugar.</p>
     </div>
   </div>
 
-  <!-- Formulario -->
   <div class="auth-form-wrap">
     <h1 class="form-titulo">Iniciar sesión</h1>
     <p class="form-sub">Ingresa con tu cuenta GrowSystem</p>
@@ -294,19 +256,15 @@ body {
     <div class="error-msg"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
-    <form method="POST" autocomplete="on">
+    <form method="POST">
       <div class="campo">
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" name="email"
-               placeholder="tu@correo.com"
-               value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
-               required autofocus>
+        <label>Correo electrónico</label>
+        <input type="email" name="email" required>
       </div>
 
       <div class="campo">
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" name="password"
-               placeholder="••••••••" required>
+        <label>Contraseña</label>
+        <input type="password" name="password" required>
       </div>
 
       <button type="submit" class="btn-submit">Entrar</button>

@@ -5,7 +5,7 @@ session_start();
 
 // Si ya hay sesión activa, redirigir al dashboard
 if (isset($_SESSION['usuario_id'])) {
-    header('Location: dashboard.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['rol']        = $row['rol'];
 
                 // Admin → panel admin, cliente → dashboard
-                header('Location: ' . ($row['rol'] === 'admin' ? 'admin.php' : 'dashboard.php'));
+                header('Location: ' . ($row['rol'] === 'admin' ? 'admin.php' : 'index.php'));
                 exit;
             }
         }

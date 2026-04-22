@@ -66,41 +66,41 @@ $db->close();
 <body>
 
 <header class="header">
+
     <div class="logo">
         <div class="plantIcon"><img src="icono.png" alt="GrowSystem"></div>
         <h1 class="Titulo">GrowSystem</h1>
     </div>
+
     <div class="header-acciones">
-   <a href="productos.php" class="btn-tienda">Tienda</a>
-    <?php if (($_SESSION['rol'] ?? '') === 'admin'): ?>
-     
 
-    <a href="admin.php" class="admin-btn">
-        Panel Admin
-    </a>
-    <?php endif; ?>
+        <a href="productos.php" class="btn-tienda">Tienda</a>
 
-    <div class="profile-menu">
-        <button class="profile-btn" onclick="toggleMenu()">
-            🍀
-        </button>
+        <?php if (($_SESSION['rol'] ?? '') === 'admin'): ?>
+            <a href="admin.php" class="admin-btn">Panel Admin</a>
+        <?php endif; ?>
 
-        <div class="dropdown-profile" id="profileDropdown">
-            <div class="profile-header">
-                <div class="profile-avatar">
-                    <?= strtoupper(substr($nombre,0,1)) ?>
+        <div class="profile-menu">
+            <button class="profile-btn" onclick="toggleMenu()">🍀</button>
+
+            <div class="dropdown-profile" id="profileDropdown">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <?= strtoupper(substr($nombre,0,1)) ?>
+                    </div>
+                    <h4><?= htmlspecialchars($nombre) ?></h4>
+                    <p><?= htmlspecialchars($_SESSION['rol'] ?? 'Usuario') ?></p>
                 </div>
-                <h4><?= htmlspecialchars($nombre) ?></h4>
-                <p><?= htmlspecialchars($_SESSION['rol'] ?? 'Usuario') ?></p>
-            </div>
 
-            <a href="perfil.php">Mi perfil</a>
-            <a href="mis_plantas.php">Mis plantas</a>
-            <a href="configuracion.php">Configuración</a>
-            <a href="logout.php" class="logout-link">Cerrar sesión</a>
+                <a href="perfil.php">Mi perfil</a>
+                <a href="mis_plantas.php">Mis plantas</a>
+                <a href="configuracion.php">Configuración</a>
+                <a href="logout.php" class="logout-link">Cerrar sesión</a>
+            </div>
         </div>
+
     </div>
-</div>
+
 </header>
 
 <div class="container">
