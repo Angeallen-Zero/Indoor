@@ -10,6 +10,7 @@
 
 ---
 ## Vista del sistema
+![Configuración](images/principal.png)
 
 ![Login](images/login.png)
 
@@ -21,7 +22,7 @@
 
 ![Dashboard](images/productos.png)
 
-![Configuración](images/principal.png)
+
 **
 
 ## 📋 Descripción
