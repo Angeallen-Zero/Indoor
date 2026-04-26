@@ -33,9 +33,6 @@ El sistema mantiene condiciones óptimas mediante regulación automática basada
 ✅ Menú configurable
 ✅ Actualizaciones dinámicas sin recarga
 ✅ Contador de carrito en tiempo real
-🏗️ Estructura del Proyecto
-Angeallen-Zero/Indoor/ ├── htdocs/ │ └── Indoor/ │ ├── productos.php # Tienda de productos │ ├── carrito.php # Gestión del carrito │ ├── checkout.php # Finalización de pedidos │ ├── agregar_carrito.php # Lógica de carrito (AJAX) │ ├── eliminar_carrito.php # Eliminar productos │ ├── procesar_pedido.php # Procesamiento de pedidos │ ├── conect.php # Conexión a base de datos │ ├── inicio_indoor.php # Página de inicio/login │ ├── registro.php # Registro de usuarios │ ├── styles.css # Estilos globales │ ├── tienda.css # Estilos de tienda │ ├── carrito.css # Estilos del carrito │ ├── checkout.css # Estilos del checkout │ ├── js/ │ │ └── script.js # JavaScript global │ ├── icono.png # Logo de la aplicación │ └── README.md # Este archivo ├── docs/ │ ├── SRS.md # Especificación de Requisitos │ └── IEEE1016.md # Documentación de Diseño └── LICENSE # Licencia MIT 
-
 ## 🚀 Instalación y Configuración
 
 ### Requisitos Previos
