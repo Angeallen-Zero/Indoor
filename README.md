@@ -10,9 +10,10 @@
 
 ---
 ## Vista del sistema
-![Configuración](images/principal.png)
+**![Login](images/inicio.png)
 
 ![Login](images/login.png)
+![Configuración](images/principal.png)
 
 ![Dashboard](images/esp32.png)
 
@@ -23,6 +24,11 @@
 ![Dashboard](images/productos.png)
 
 
+![Configuración](images/admin.png)
+
+
+
+![Dashboard](images/ventas.png)
 **
 
 ## 📋 Descripción
