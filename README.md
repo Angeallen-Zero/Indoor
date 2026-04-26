@@ -19,7 +19,7 @@
 
 ![Configuración](images/tienda.png)
 
-**![Login](images/checkout.png)
+![Login](images/checkout.png)
 
 ![Dashboard](images/productos.png)
 
