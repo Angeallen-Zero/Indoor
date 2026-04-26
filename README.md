@@ -9,6 +9,20 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)
 
 ---
+## Vista del sistema
+
+![Login](images/login.png)
+
+![Dashboard](images/esp32.png)
+
+![Configuración](images/tienda.png)
+
+**![Login](images/checkout.png)
+
+![Dashboard](images/productos.png)
+
+![Configuración](images/principal.png)
+**
 
 ## 📋 Descripción
 
