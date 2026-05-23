@@ -1,0 +1,107 @@
+body {
+    background: #f7faf8;
+}
+
+/* GRID PRODUCTOS */
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* CARD */
+.producto-card {
+    background: white;
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.08);
+    transition: .25s;
+}
+
+.producto-card:hover {
+    transform: translateY(-6px);
+}
+
+/* IMAGEN */
+.producto-imagen {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+/* INFO */
+.producto-info h3 {
+    margin: 14px 0 8px;
+    color: #1e2a1f;
+}
+
+.precio {
+    font-size: 22px;
+    font-weight: bold;
+    color: #27ae60;
+}
+
+/* CONTADOR */
+.contador {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin: 18px 0;
+}
+
+.contador button {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    background: #27ae60;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.contador span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* BOTON */
+.btn-agregar {
+    width: 100%;
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-agregar:hover {
+    background: #219150;
+}
+.carrito-icono{
+    position: relative;
+    display: inline-block;
+}
+
+.badge-carrito{
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+}
