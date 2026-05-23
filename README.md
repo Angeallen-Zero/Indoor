@@ -1,107 +1,248 @@
-🌱 GrowSystem
+# 🌱 GrowSystem - Sistema Inteligente de Invernadero Indoor
 
-Sistema web para la gestión de invernaderos inteligentes, control de plantas y monitoreo mediante integración con ESP32, base de datos MySQL y API de reconocimiento de plantas.
+![PHP](https://img.shields.io/badge/PHP-8.x-blue)
+![MySQL](https://img.shields.io/badge/MySQL-Database-orange)
+![ESP32](https://img.shields.io/badge/ESP32-IoT-red)
+![XAMPP](https://img.shields.io/badge/XAMPP-Required-yellow)
+![Status](https://img.shields.io/badge/Status-Development-green)
 
-📌 Descripción
+## 📖 Descripción
 
-GrowSystem es una plataforma web desarrollada en PHP que permite:
+**GrowSystem** es una plataforma web desarrollada para la administración y monitoreo de un invernadero indoor inteligente utilizando **ESP32**, sensores ambientales y una interfaz web en **PHP + MySQL**.
 
-Gestión de usuarios y autenticación
-Administración de plantas e inventario
-Control y monitoreo de un sistema de invernadero con ESP32
-Registro de eventos y tareas del cultivo
-Sistema de carrito y compras
-Generación de tickets en PDF
-Reconocimiento de plantas mediante la API de PlantNet
-⚙️ Tecnologías utilizadas
-PHP (Backend)
-MySQL (Base de datos)
-JavaScript (Frontend dinámico)
-HTML5 / CSS3
-ESP32 (IoT / sensores)
-FPDF (Generación de PDFs)
-PHPMailer (Correos electrónicos)
-PlantNet API (Reconocimiento de plantas)
-🚀 Instalación
+El sistema permite:
 
-Sigue estos pasos para ejecutar el proyecto en local:
+* 🌡️ Monitoreo de temperatura y humedad
+* 💧 Control automático de riego
+* 💡 Gestión de ciclos de iluminación
+* 🌿 Registro y administración de plantas
+* 🛒 Sistema de tienda y carrito de compras
+* 📅 Calendario de eventos
+* 📄 Generación de tickets PDF
+* 📡 Comunicación entre ESP32 y servidor web
+* 🔐 Sistema de autenticación de usuarios
 
-1. Clonar el repositorio
-git clone https://github.com/Angeallen-Zero/Indoor.git
-2. Mover el proyecto a XAMPP
+---
 
-Coloca la carpeta dentro de:
+# 🛠️ Tecnologías Utilizadas
 
-C:\xampp\htdocs\
+* PHP
+* MySQL
+* JavaScript
+* HTML5 / CSS3
+* Bootstrap
+* ESP32
+* Arduino IDE
+* PHPMailer
+* FPDF
 
-Ejemplo:
+---
 
-C:\xampp\htdocs\Indoor
-3. Iniciar servicios
+# 📂 Estructura del Proyecto
 
-Abre XAMPP y enciende:
-
-Apache
-MySQL
-4. Importar base de datos
-
-Abre phpMyAdmin:
-
-http://localhost/phpmyadmin
-Crea una base de datos llamada:
-growsystem
-Importa el archivo:
-growsystem.sql
-5. Configurar conexión a base de datos
-
-Revisa el archivo:
-
-conect.php
-
-Y asegúrate de tener algo como:
-
-$conexion = new mysqli("localhost", "root", "", "growsystem");
-6. Configurar API de PlantNet 🌿
-
-Para usar el reconocimiento de plantas necesitas una API Key:
-
-Regístrate en:
-https://my.plantnet.org/
-Obtén tu API Key
-Colócala en el archivo correspondiente del proyecto (ejemplo):
-$apiKey = "TU_API_KEY_AQUI";
-📂 Estructura del proyecto
+```bash
 Indoor/
 │
-├── api/
-├── Conexion con esp32/
-├── css/
-├── docs/
-├── fpdf/
-├── imagenes/
-├── uploads/
-├── PHPMailer/
-│
-├── index.php
-├── login.php
-├── carrito.php
-├── checkout.php
-├── ticket_pdf.php
-├── procesar_pedido.php
-└── growsystem.sql
-🧾 Funcionalidades principales
-🪴 Gestión de plantas
-📦 Sistema de pedidos y carrito
-📄 Generación de tickets PDF
-📧 Envío de confirmaciones por correo
-🌡️ Control de invernadero con ESP32
-📷 Reconocimiento de plantas con IA (PlantNet)
-🛠️ Notas importantes
-El proyecto está diseñado para ejecutarse en entorno local con XAMPP
-Asegúrate de tener habilitado mysqli y curl en PHP
-La base de datos debe llamarse exactamente growsystem
-👨‍💻 Autor
+├── api/                  # Endpoints y controladores
+├── uploads/              # Imágenes subidas
+├── docs/                 # Documentación y diagramas
+├── codigo de arduino/    # Código para ESP32
+├── PHPMailer/            # Librería de correos
+├── fpdf/                 # Librería para PDFs
+├── css/                  # Estilos
+├── js/                   # Scripts JavaScript
+└── growsystem.sql        # Base de datos
+```
 
-Desarrollado por Angel ramos 
-                 Miguel Pantoja
-                 Jonathan Alonso
+---
+
+# ⚙️ Requisitos
+
+Antes de comenzar necesitas tener instalado:
+
+* ✅ XAMPP
+* ✅ PHP 8 o superior
+* ✅ MySQL
+* ✅ Arduino IDE (opcional para ESP32)
+* ✅ Cuenta y API Key de PlantNet
+
+---
+
+# 🚀 Instalación
+
+## 1️⃣ Clonar el repositorio
+
+```bash
+git clone https://github.com/Angeallen-Zero/Indoor.git
+```
+
+---
+
+## 2️⃣ Mover el proyecto a htdocs
+
+Coloca la carpeta del proyecto dentro de:
+
+```bash
+xampp/htdocs/
+```
+
+---
+
+## 3️⃣ Importar la base de datos
+
+1. Abrir **phpMyAdmin**
+2. Crear una base de datos llamada:
+
+```bash
+growsystem
+```
+
+3. Importar el archivo:
+
+```bash
+growsystem.sql
+```
+
+---
+
+## 4️⃣ Configurar conexión a la base de datos
+
+Editar el archivo:
+
+```bash
+api/db.php
+```
+
+o
+
+```bash
+conexion.php
+```
+
+Configurar:
+
+```php
+$host = "localhost";
+$user = "root";
+$password = "";
+$db = "growsystem";
+```
+
+---
+
+## 5️⃣ Configurar API Key de PlantNet
+
+Obtener una API Key desde:
+
+https://my.plantnet.org/
+
+Luego agregarla en el archivo correspondiente del proyecto.
+
+---
+
+# ▶️ Ejecutar el Proyecto
+
+Iniciar:
+
+* Apache
+* MySQL
+
+Desde XAMPP.
+
+Luego abrir:
+
+```bash
+http://localhost/Indoor
+```
+
+---
+
+# 📸 Funcionalidades Principales
+
+## 🌿 Gestión de Plantas
+
+* Registro de plantas
+* Edición y eliminación
+* Subida de imágenes
+* Detección mediante PlantNet
+
+## 📡 Integración IoT
+
+* Comunicación ESP32 ↔ Servidor
+* Sensores ambientales
+* Automatización de riego
+
+## 🛒 Sistema Ecommerce
+
+* Catálogo de productos
+* Carrito de compras
+* Checkout
+* Tickets PDF
+
+## 📅 Calendario
+
+* Eventos personalizados
+* Organización de tareas del cultivo
+
+---
+
+# 🧠 Arquitectura del Sistema
+
+El proyecto utiliza una arquitectura basada en:
+
+* Cliente Web
+* API PHP
+* Base de Datos MySQL
+* Dispositivo ESP32
+* Sensores y actuadores
+
+---
+
+# 📄 Documentación
+
+Dentro de la carpeta `docs/` encontrarás:
+
+* Diagramas UML
+* Arquitectura del software
+* Diagramas de flujo
+* Casos de uso
+* IEEE1016
+* SRS
+
+---
+
+# 🔒 Seguridad
+
+* Sistema de login y registro
+* Validación de sesiones
+* Manejo de autenticación
+* Protección básica de rutas administrativas
+
+---
+
+# 👨‍💻 Autor
+
+Desarrollado por:
+
+**Angel Allen**
+
+GitHub:
+https://github.com/Angeallen-Zero
+
+---
+
+# 📌 Estado del Proyecto
+
+🚧 Proyecto en desarrollo activo.
+
+---
+
+# ⭐ Contribuciones
+
+Las contribuciones, mejoras y sugerencias son bienvenidas.
+
+---
+
+# 📜 Licencia
+
+Este proyecto es de uso académico y educativo.
