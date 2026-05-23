@@ -223,9 +223,9 @@ Dentro de la carpeta `docs/` encontrarás:
 # 👨‍💻 Autor
 
 Desarrollado por:
-
+**Miguel Pantoja**
 **Angel Allen**
-
+**Jonathan Alonso**
 GitHub:
 https://github.com/Angeallen-Zero
 
