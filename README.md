@@ -220,14 +220,17 @@ Dentro de la carpeta `docs/` encontrarás:
 
 ---
 
-# 👨‍💻 Autor
+# 👨‍💻 Autores
 
 Desarrollado por:
-**Miguel Pantoja**
-**Angel Allen**
-**Jonathan Alonso**
-GitHub:
-https://github.com/Angeallen-Zero
+
+* **Miguel Pantoja**
+* **Angel Ramos**
+* **Jonathan Alonso**
+
+GitHub del proyecto:
+https://github.com/Angeallen-Zero/Indoor
+
 
 ---
 
