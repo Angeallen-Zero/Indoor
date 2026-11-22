@@ -1,0 +1,32 @@
+[
+    {
+        "nombreComun": "No disponible",
+        "nombreCientifico": "Helianthus bolanderi A.Gray",
+        "familia": "Asteraceae",
+        "genero": "Helianthus",
+        "confianza": 3,
+        "organo": "No detectado",
+        "imagenSubida": "uploads\/1772487031_girasols.jpg",
+        "imagenReferencia": null
+    },
+    {
+        "nombreComun": "Manzanilla fina",
+        "nombreCientifico": "Matricaria aurea (Loefl.) Sch.Bip.",
+        "familia": "Asteraceae",
+        "genero": "Matricaria",
+        "confianza": 38,
+        "organo": "No detectado",
+        "imagenSubida": "uploads\/1772487148_plamnta.jpg",
+        "imagenReferencia": null
+    },
+    {
+        "nombreComun": "No disponible",
+        "nombreCientifico": "Philodendron elegans K.Krause",
+        "familia": "Araceae",
+        "genero": "Philodendron",
+        "confianza": 6,
+        "organo": "No detectado",
+        "imagenSubida": "uploads\/1772487177_fondos.jpg",
+        "imagenReferencia": null
+    }
+]
